@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rebus.Log4net</name>
+    </assembly>
+    <members>
+        <member name="T:Rebus.Config.Log4NetConfigurationExtensions">
+            <summary>
+            Configuration extensions for setting up logging with Log4net
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.Log4NetConfigurationExtensions.Log4Net(Rebus.Config.RebusLoggingConfigurer)">
+            <summary>
+            Configures Rebus to use Log4Net for all of its internal logging, getting its loggers by calling logger <see cref="M:log4net.LogManager.GetLogger(System.Type)"/>
+            </summary>
+        </member>
+        <member name="T:Rebus.Log4NetLoggerFactory">
+            <summary>
+            Logger factory that creates Log4net-based loggers
+            </summary>
+        </member>
+        <member name="M:Rebus.Log4NetLoggerFactory.GetLogger(System.Type)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rebus.RabbitMq</name>
+    </assembly>
+    <members>
+        <member name="T:Rebus.Config.RabbitMqCallbackOptionsBuilder">
+            <summary>
+            Allows for fluently configuring RabbitMQ callbacks
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqCallbackOptionsBuilder.BasicReturn(System.Action{System.Object,Rebus.RabbitMq.BasicReturnEventArgs})">
+            <summary>
+            Add callback function for BasicReturn event
+            </summary>
+        </member>
+        <member name="T:Rebus.Config.RabbitMqConfigurationExtensions">
+            <summary>
+            Configuration extensions for the RabbitMQ transport
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqConfigurationExtensions.UseRabbitMqAsOneWayClient(Rebus.Config.StandardConfigurer{Rebus.Transport.ITransport},System.String)">
+            <summary>
+            Configures Rebus to use RabbitMQ to transport messages as a one-way client (i.e. will not be able to receive any messages)
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqConfigurationExtensions.UseRabbitMqAsOneWayClient(Rebus.Config.StandardConfigurer{Rebus.Transport.ITransport},System.Collections.Generic.IList{Rebus.RabbitMq.ConnectionEndpoint})">
+            <summary>
+            Configures Rebus to use RabbitMQ to transport messages as a one-way client (i.e. will not be able to receive any messages)
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqConfigurationExtensions.UseRabbitMq(Rebus.Config.StandardConfigurer{Rebus.Transport.ITransport},System.String,System.String)">
+            <summary>
+            Configures Rebus to use RabbitMQ to move messages around
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqConfigurationExtensions.UseRabbitMq(Rebus.Config.StandardConfigurer{Rebus.Transport.ITransport},System.Collections.Generic.IList{Rebus.RabbitMq.ConnectionEndpoint},System.String)">
+            <summary>
+            Configures Rebus to use RabbitMQ to move messages around
+            </summary>
+        </member>
+        <member name="T:Rebus.Config.RabbitMqOptionsBuilder">
+            <summary>
+            Allows for fluently configuring RabbitMQ options
+            </summary>
+        </member>
+        <member name="F:Rebus.Config.RabbitMqOptionsBuilder.DefaultDirectExchangeName">
+            <summary>
+            Default name of the exchange of type DIRECT (used for point-to-point messaging)
+            </summary>
+        </member>
+        <member name="F:Rebus.Config.RabbitMqOptionsBuilder.DefaultTopicExchangeName">
+            <summary>
+            Default name of the exchange of type TOPIC (used for pub-sub)
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.Declarations(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Configures which things to auto-declare and whether to bind the input queue. 
+            Please note that you must be careful when you skip e.g. binding of the input queue as it may lead to lost messages
+            if the direct binding is not established. 
+            By default, two exchanges will be declared: one of the DIRECT type (for point-to-point messaging) and one of the
+            TOPIC type (for pub-sub). Moreover, the endpoint's input queue will be declared, and a binding
+            will be made from a topic of the same name as the input queue in the DIRECT exchange.
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.Prefetch(System.Int32)">
+            <summary>
+            Sets max number of messages to prefetch
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.ExchangeNames(System.String,System.String)">
+            <summary>
+            Configures which names to use for the two types of necessary exchanges
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.AddClientProperties(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Adds the given custom properties to be added to the RabbitMQ client connection when it is established
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.StrictPriorityQueue(System.Int32)">
+            <summary>
+            Configure input queue as a strict priority queue. 
+            This setting adds "x-max-priority" argument to the input queue parameters
+            And sets Prefetch(1) in order to strictly prioritize messages
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.PriorityQueue(System.Int32)">
+            <summary>
+            Configure input queue as a priority queue. 
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.Mandatory(System.Action{System.Object,Rebus.RabbitMq.BasicReturnEventArgs})">
+            <summary>
+            Configure mandatory delivery. 
+            This configuration tells the server how to react if the message cannot be routed to a queue. 
+            If this configuration is set, the server will return an unroutable message with a Return method. 
+            If this configuration is not used, the server silently drops the message
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.InputQueueOptions(System.Action{Rebus.Config.RabbitMqQueueOptionsBuilder})">
+            <summary>
+            Configure input queue manually. Beaware that this will override default settings.
+            If used in conjunction with PriorityQueue and StrictPriorityQueue options it might have unexpected results. 
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.RegisterEventCallbacks(System.Action{Rebus.Config.RabbitMqCallbackOptionsBuilder})">
+            <summary>
+            Register RabbitMq callback events. Events are triggered dependening on the message headers.
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqOptionsBuilder.Ssl(Rebus.RabbitMq.SslSettings)">
+            <summary>
+            Sets SLL settings to use when connecting to the broker
+            This method is intended to use only when constructing RabbitMq Transport with single node provided through string connectionString
+            </summary>
+        </member>
+        <member name="T:Rebus.Config.RabbitMqQueueOptionsBuilder">
+            <summary>
+            Allows for fluently configuring RabbitMQ input queue options
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqQueueOptionsBuilder.SetDurable(System.Boolean)">
+            <summary>
+            Set the durability of the input queue
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqQueueOptionsBuilder.SetExclusive(System.Boolean)">
+            <summary>
+            Set exclusiveness of the input queue
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqQueueOptionsBuilder.SetAutoDelete(System.Boolean)">
+            <summary>
+            Set auto delete
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqQueueOptionsBuilder.SetArguments(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Set the arguments of the input queue
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.RabbitMqQueueOptionsBuilder.AddArgument(System.String,System.String)">
+            <summary>
+            Add input queue arguments to the default settings
+            </summary>
+        </member>
+        <member name="T:Rebus.Exceptions.MandatoryDeliveryException">
+            <summary>
+            Exceptions that is thrown when something goes wrong while working with mandatory delivery
+            </summary>
+        </member>
+        <member name="M:Rebus.Exceptions.MandatoryDeliveryException.#ctor(System.String)">
+            <summary>
+            Constructs the exception
+            </summary>
+        </member>
+        <member name="M:Rebus.Exceptions.MandatoryDeliveryException.#ctor(System.Exception,System.String)">
+            <summary>
+            Constructs the exception
+            </summary>
+        </member>
+        <member name="T:Rebus.RabbitMq.BasicReturnEventArgs">
+            <summary>
+            Contains all the information about a message returned from an AMQP broker within the Basic content-class.
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.BasicReturnEventArgs.#ctor(Rebus.Messages.TransportMessage,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Creates the event args with the given values
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.Message">
+            <summary>The transport message.</summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.Headers">
+            <summary>
+            Gets the headers of the message
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.Exchange">
+            <summary>The exchange the returned message was originally
+            published to.</summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.ReplyCode">
+            <summary>The AMQP reason code for the return. See
+            RabbitMQ.Client.Framing.*.Constants.</summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.ReplyText">
+            <summary>Human-readable text from the broker describing the
+            reason for the return.</summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.BasicReturnEventArgs.RoutingKey">
+            <summary>The routing key used when the message was
+            originally published.</summary>
+        </member>
+        <member name="T:Rebus.RabbitMq.ConnectionEndpoint">
+            <summary>
+            Represents settings that will be mapped to AmqpTcpEndpoint 
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.ConnectionEndpoint.ConnectionString">
+            <summary>
+            Will be mapped to RabbitMq URI
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.ConnectionEndpoint.ConnectionUri">
+            <summary>
+            Wraps <see cref="P:Rebus.RabbitMq.ConnectionEndpoint.ConnectionString"/> in a <see cref="T:System.Uri"/>
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.ConnectionEndpoint.SslSettings">
+            <summary>
+            Will be mapped to RabbitMq SslOptions. Could be null
+            </summary>
+        </member>
+        <member name="T:Rebus.RabbitMq.RabbitMqHeaders">
+            <summary>
+            Contains keys for RabbitMQ headers
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.Mandatory">
+            <summary>
+            The mandatory flag can be thought of as turning on fault detection mode, it will only cause RabbitMQ to notify you of failures, not success. Should the message route correctly, your publisher will not be notified.
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.MessageId">
+            <summary>
+            A unique identifier such as a UUID that your application can use to identify the message
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.AppId">
+            <summary>
+            Id of the application publishing messages
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.CorrelationId">
+            <summary>
+            If the message is in reference to some other message or uniquely identifiable item, the correlation-id is a good way to indicate what the message is referencing
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.UserId">
+            <summary>
+            A free-form string that if used, RabbitMQ will validate against the connected user and drop messages if they do not match.
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.ContentType">
+            <summary>
+            Specify type of the message body using mime-types
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.ContentEncoding">
+            <summary>
+            used for specifying content encoding, if your message body is encoded in some special way such as zlib, deflate or base64
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.DeliveryMode">
+            <summary>
+            Non-persistent (1) or persistent (2).
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.Expiration">
+            <summary>
+            An epoch or unix-timestamp value as a text string that indicates when the message should expire
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.Priority">
+            <summary>
+            Property specified for the use for priority ordering in queues
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.Timestamp">
+            <summary>
+            An epoch or unix-timestamp value that can be used to indicate when the message was created
+            </summary>
+        </member>
+        <member name="F:Rebus.RabbitMq.RabbitMqHeaders.Type">
+            <summary>
+            A text string your application can use to describe the message type or payload
+            </summary>
+        </member>
+        <member name="T:Rebus.RabbitMq.RabbitMqTransport">
+            <summary>
+            Implementation of <see cref="T:Rebus.Transport.ITransport"/> that uses RabbitMQ to send/receive messages
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.#ctor(System.Collections.Generic.IList{Rebus.RabbitMq.ConnectionEndpoint},System.String,Rebus.Logging.IRebusLoggerFactory,System.Int32)">
+            <summary>
+            Constructs the RabbitMQ transport with multiple connection endpoints. They will be tryed in random order until working one is found
+             Credentials will be extracted from the connectionString of the first provided endpoint
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.#ctor(System.String,System.String,Rebus.Logging.IRebusLoggerFactory,System.Int32)">
+            <summary>
+            Constructs the transport with a connection to the RabbitMQ instance specified by the given connection string.
+            Multiple connectionstrings could be provided. They should be separates with , or ; 
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.AddClientProperties(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Stores the client properties to be haded to RabbitMQ when the connection is established
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetSslSettings(Rebus.RabbitMq.SslSettings)">
+            <summary>
+            Stores ssl options to be used when connection to RabbitMQ is established
+            intended to use with single node Rabbitmq setup
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetDeclareExchanges(System.Boolean)">
+            <summary>
+            Sets whether the exchange should be declared
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetDeclareInputQueue(System.Boolean)">
+            <summary>
+            Sets whether the endpoint's input queue should be declared
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetBindInputQueue(System.Boolean)">
+            <summary>
+            Sets whether a binding for the input queue should be declared
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetDirectExchangeName(System.String)">
+            <summary>
+            Sets the name of the exchange used to send point-to-point messages
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetTopicExchangeName(System.String)">
+            <summary>
+            Sets the name of the exchange used to do publish/subscribe messaging
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetMaxMessagesToPrefetch(System.Int32)">
+            <summary>
+            Configures how many messages to prefetch
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetCallbackOptions(Rebus.Config.RabbitMqCallbackOptionsBuilder)">
+            <summary>
+            Configures BasicModel events
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.SetInputQueueOptions(Rebus.Config.RabbitMqQueueOptionsBuilder)">
+            <summary>
+            Configures input queue options
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.Initialize">
+            <summary>
+            Initializes the transport by creating the input queue
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.CreateQueue(System.String)">
+            <summary>
+            Creates a queue with the given name and binds it to a topic with the same name in the direct exchange
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.Send(System.String,Rebus.Messages.TransportMessage,Rebus.Transport.ITransactionContext)">
+            <inheritdoc />
+        </member>
+        <member name="P:Rebus.RabbitMq.RabbitMqTransport.Address">
+            <inheritdoc />
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.PurgeInputQueue">
+            <summary>
+            Deletes all messages from the queue
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.Receive(Rebus.Transport.ITransactionContext,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.CreateTransportMessage(RabbitMQ.Client.IBasicProperties,System.Byte[])">
+            <summary>
+            Creates the transport message.
+            </summary>
+            <param name="basicProperties"></param>
+            <param name="body"></param>
+            <returns>the TransportMessage</returns>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.InitializeConsumer">
+            <summary>
+            Creates the consumer.
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.GetSubscriberAddresses(System.String)">
+            <summary>
+            Gets "subscriber addresses" as one single magic "queue address", which will be interpreted
+            as a proper pub/sub topic when the time comes to send to it
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.RegisterSubscriber(System.String,System.String)">
+            <summary>
+            Registers the queue address as a subscriber of the given topic by creating an appropriate binding
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.RabbitMqTransport.UnregisterSubscriber(System.String,System.String)">
+            <summary>
+            Unregisters the queue address as a subscriber of the given topic by removing the appropriate binding
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.RabbitMqTransport.IsCentralized">
+            <summary>
+            Gets whether this transport is centralized (it always is, as RabbitMQ's bindings are used to do proper pub/sub messaging)
+            </summary>
+        </member>
+        <member name="T:Rebus.RabbitMq.SslSettings">
+            <summary>
+            Represents ssl settings to be used in rabbitmq SSL connection, will be mapped to rabbitmq SslOptions
+            </summary>
+        </member>
+        <member name="M:Rebus.RabbitMq.SslSettings.#ctor(System.Boolean,System.String,System.String,System.String,System.Security.Authentication.SslProtocols,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            Constructs an SslSettings 
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.Enabled">
+            <summary>
+            specify if Ssl should indeed be used     
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.ServerName">
+            <summary>
+            Retrieve or set server's Canonical Name.
+            This MUST match the CN on the Server Certificate else the SSL connection will fail.
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.AcceptablePolicyErrors">
+            <summary>
+            Retrieve or set the set of ssl policy errors that are deemed acceptable.
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.CertPassphrase">
+            <summary>
+            Retrieve or set the path to client certificate.
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.CertPath">
+            <summary>
+            Retrieve or set the path to client certificate.
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.Version">
+            <summary>
+            Retrieve or set the Ssl protocol version.
+            </summary>
+        </member>
+    </members>
+</doc>
+ to client certificate.
+            </summary>
+        </member>
+        <member name="P:Rebus.RabbitMq.SslSettings.Version">
+            <summary>
+            Retrieve or set the Ssl protocol version.
+            </summary>
+        </member>
+    </members>
+</doc>

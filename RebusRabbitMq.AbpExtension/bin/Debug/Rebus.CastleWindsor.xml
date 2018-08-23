@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rebus.CastleWindsor</name>
+    </assembly>
+    <members>
+        <member name="T:Rebus.CastleWindsor.RebusScopeAccessor">
+            <summary>
+            Castle Windsor scope accessor that gets a <see cref="T:Castle.MicroKernel.Lifestyle.Scoped.DefaultLifetimeScope"/> which is stashed in the current transaction context
+            </summary>
+        </member>
+        <member name="T:Rebus.CastleWindsor.WindsorContainerExtensions">
+            <summary>
+            Extension methods for making it easy to register Rebus handlers in your <see cref="T:Castle.Windsor.WindsorContainer"/>
+            </summary>
+        </member>
+        <member name="M:Rebus.CastleWindsor.WindsorContainerExtensions.PerRebusMessage``1(Castle.MicroKernel.Registration.Lifestyle.LifestyleGroup{``0})">
+            <summary>
+            Uses an instance lifestyle where the instance is bound to (and thus will re-used across) the current Rebus transaction context
+            </summary>
+        </member>
+        <member name="M:Rebus.CastleWindsor.WindsorContainerExtensions.LifestylePerRebusMessage``1(Castle.MicroKernel.Registration.ComponentRegistration{``0})">
+            <summary>
+            Uses an instance lifestyle where the instance is bound to (and thus will re-used across) the current Rebus transaction context
+            </summary>
+        </member>
+        <member name="M:Rebus.CastleWindsor.WindsorContainerExtensions.AutoRegisterHandlersFromAssemblyOf``1(Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Automatically picks up all handler types from the assembly containing <typeparamref name="THandler"/> and registers them in the container
+            </summary>
+        </member>
+        <member name="M:Rebus.CastleWindsor.WindsorContainerExtensions.AutoRegisterHandlersFromAssembly(Castle.Windsor.IWindsorContainer,System.Reflection.Assembly)">
+            <summary>
+            Automatically picks up all handler types from the specified assembly and registers them in the container
+            </summary>
+        </member>
+        <member name="M:Rebus.CastleWindsor.WindsorContainerExtensions.RegisterHandler``1(Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Registers the given handler type under the implemented handler interfaces
+            </summary>
+        </member>
+        <member name="T:Rebus.Config.CastleWindsorContainerAdapter">
+            <summary>
+            Implementation of <see cref="T:Rebus.Activation.IContainerAdapter"/> that is backed by a Windsor Container
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.CastleWindsorContainerAdapter.#ctor(Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Constructs the Windsor handler activator
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.CastleWindsorContainerAdapter.GetHandlers``1(``0,Rebus.Transport.ITransactionContext)">
+            <summary>
+            Resolves all handlers for the given <typeparamref name="TMessage"/> message type
+            </summary>
+        </member>
+        <member name="M:Rebus.Config.CastleWindsorContainerAdapter.SetBus(Rebus.Bus.IBus)">
+            <summary>
+            Stores the bus instance
+            </summary>
+        </member>
+        <member name="T:Rebus.Config.CastleWindsorContainerAdapter.InstanceDisposer">
+            <summary>
+            containehack to makes sure we dispose the bus instance when the container is disposed
+            </summary>
+        </member>
+    </members>
+</doc>
